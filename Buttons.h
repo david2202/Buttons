@@ -47,4 +47,30 @@ class DigitalButton : public Button {
     buttonCallbackType _releaseCallback = NULL;
 };
 
+class AnalogButton : public Button {
+  public:
+    AnalogButton(int pin, int vMin, int vMax, int debounceDelay, int repeatInitialDelay, int repeatDelay, buttonCallbackType clickCallback);
+    AnalogButton(int pin, int vMin, int vMax, int debounceDelay, buttonCallbackType clickCallback);
+    AnalogButton(int pin, int vMin, int vMax, int debounceDelay, int repeatInitialDelay, int repeatDelay, buttonCallbackType clickCallback, buttonCallbackType releaseCallback);
+    AnalogButton(int pin, int vMin, int vMax, int debounceDelay, buttonCallbackType clickCallback, buttonCallbackType releaseCallback);
+    ~AnalogButton();
+    void read();
+    boolean isRepeating();
+    boolean isDown();
+
+  private:
+    int _pin;
+    int _vMin;
+    int _vMax;
+    int _currentState;
+    int _previousState;
+    long _lastDebounceTime;
+    int _debounceDelay;
+    int _repeatInitialDelay;
+    int _repeatDelay;
+    boolean _repeating;
+    buttonCallbackType _clickCallback;
+    buttonCallbackType _releaseCallback = NULL;
+};
+
 #endif
